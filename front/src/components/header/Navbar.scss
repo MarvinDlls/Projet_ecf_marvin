@@ -1,4 +1,5 @@
-/* Styles de la navbar */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
 .header {
     display: flex;
     justify-content: center;
@@ -18,7 +19,7 @@
         font-size: 1rem;
         border: 1px solid #000;
         border-radius: 15px;
-        
+        font-family: 'Open Sans';
       }
 
       &-icon {
@@ -42,6 +43,7 @@
         .title {
         font-size: 16px;
         color: #46403E;
+        font-family: 'Open Sans';
         cursor: pointer;
         display: flex;
         align-self: center;
@@ -61,6 +63,7 @@
         .nav-link {
             padding: 8px 16px;
             color: #46403E;
+            font-family: 'Open Sans';
             font-size: 16px;
             text-decoration: none;
             font-weight: bold;
