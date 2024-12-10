@@ -54,14 +54,16 @@ $hover-color: tomato;
       margin: 0;
     }
 
-    h1 {
+    button {
       cursor: pointer;
       color: $primary-color;
       font-size: 1.2rem;
       @include transition(color);
+      border-color: transparent;
+      background-color: inherit;
 
       &:hover {
-        color: darken($primary-color, 10%);
+        color: darken($primary-color, 40%);
       }
     }
   }
@@ -161,6 +163,15 @@ $hover-color: tomato;
       background-color: $hover-color;
     }
   }
+
+  button[form="test"] {
+    &.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      background-color: grey;
+    }
+  }
+  
 }
 
 // Responsive

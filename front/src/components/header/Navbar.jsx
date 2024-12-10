@@ -6,7 +6,16 @@ import "./Navbar.scss";
 import ModalAdd from "../../components/modal/modal";
 
 const Navbar = () => {
+  const [isOpenModal1, setIsOpenModal1] = useState(false);
   const [isOpenModal2, setIsOpenModal2] = useState(false);
+
+  const handleOpenModal2 = () => {
+    setIsOpenModal2(true);
+  };
+
+  const handleCloseModal2 = () => {
+    setIsOpenModal2(false);
+  };
 
   return (
       <header className="header">
@@ -23,7 +32,7 @@ const Navbar = () => {
             <h1 className="title" onClick={setIsOpenModal2}>
             Ajouter une recette
             <img src={Add} alt="bouton ajouter" className="add" /> 
-            <ModalAdd  isOpen={isOpenModal2} onClose={() => setIsOpenModal2(false)}  />
+            <ModalAdd  isOpen={isOpenModal2} onClose={() => setIsOpenModal2(false)} openModal1={() => setIsOpenModal1(true)}  />
             </h1>
 
             <nav className="navtwo">
