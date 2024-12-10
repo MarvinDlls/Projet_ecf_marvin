@@ -3,8 +3,10 @@ import { NavLink } from "react-router-dom";
 import Search from '../../assets/search.svg';
 import Add from '../../assets/add.svg';
 import "./Navbar.scss";
+import ModalAdd from "../../components/modal/modal";
 
 const Navbar = () => {
+  const [isOpenModal2, setIsOpenModal2] = useState(false);
 
   return (
       <header className="header">
@@ -21,6 +23,7 @@ const Navbar = () => {
             <h1 className="title">
             Ajouter une recette
             <img src={Add} alt="bouton ajouter" className="add" /> 
+            <ModalAdd  isOpen={isOpenModal2} onClose={() => setIsOpenModal2(false)}  />
             </h1>
 
             <nav className="navtwo">

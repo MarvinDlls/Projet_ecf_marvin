@@ -2,12 +2,13 @@ import { useState } from "react";
 import './Home.scss';
 
 function Home () {
+
     return(
-        <div className="home">
+        <main className="home">
             <div className="home__list">
                 
             </div>
-        </div>
+        </main>
     )
 }
 
