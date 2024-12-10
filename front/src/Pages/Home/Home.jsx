@@ -1,20 +1,22 @@
 import { useState } from "react";
-import Navbar from "../../components/header/Navbar";
-import logo from '../../assets/react.svg';
 import './Home.scss';
 
 function Home () {
     return(
-        <div>
-            <Navbar />
-            <div className="container">
-                <img src={logo} alt="" />
-                <img src={logo} alt="" />
-                <img src={logo} alt="" />
-                <img src={logo} alt="" />
-                <img src={logo} alt="" />
-                <img src={logo} alt="" />
-                <img src={logo} alt="" />
+        <div className="home">
+            <div className="home__list">
+                <img src="https://assets.afcdn.com/recipe/20211122/124598_w157h157c1cx3176cy2107cxt1161cyt477cxb5347cyb3565.webp" alt="" />
+                <img src="https://assets.afcdn.com/recipe/20211122/124598_w157h157c1cx3176cy2107cxt1161cyt477cxb5347cyb3565.webp" alt="" />
+
+                <img src="https://assets.afcdn.com/recipe/20211122/124598_w157h157c1cx3176cy2107cxt1161cyt477cxb5347cyb3565.webp" alt="" />
+
+                <img src="https://assets.afcdn.com/recipe/20211122/124598_w157h157c1cx3176cy2107cxt1161cyt477cxb5347cyb3565.webp" alt="" />
+
+                <img src="https://assets.afcdn.com/recipe/20211122/124598_w157h157c1cx3176cy2107cxt1161cyt477cxb5347cyb3565.webp" alt="" />
+
+                <img src="https://assets.afcdn.com/recipe/20211122/124598_w157h157c1cx3176cy2107cxt1161cyt477cxb5347cyb3565.webp" alt="" />
+                <img src="https://assets.afcdn.com/recipe/20211122/124598_w157h157c1cx3176cy2107cxt1161cyt477cxb5347cyb3565.webp" alt="" />
+
             </div>
         </div>
     )

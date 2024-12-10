@@ -1,7 +1,31 @@
-.container {
-    align-items: center;
-    display: grid;
-    justify-content: center;
-    border: 1px solid black;
+.home {
+    width: 100%;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+
+    &__list {
+        background: #f8f9fa;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        padding: 50px;
+        gap: 50px;
+        margin: 50px 0;
+        border-radius: 25px;
+
+        @media screen and (max-width: 768px) {
+            grid-template-columns: repeat(1, 1fr);
+            gap: 20px;
+            padding: 0;
+            background: white;
+        }
+
+        img {
+            height: 271px;
+            width: 310px;
+            object-fit: contain;
+        }
+    }
 }
 
