@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { fetchCategories } from '../../Utils/Api';
 import './modal.scss';
 
-export default function Modal({ isOpen, onClose }) {   
+export default function Modal({ isOpen, onClose, onSubmit }) {   
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -33,14 +33,14 @@ export default function Modal({ isOpen, onClose }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isFormValid()) {
-      try {
-        console.log('Formulaire soumis', formData);
+        const newRecipe = {
+            ...formData,
+            image: preview, 
+        };
+        onSubmit(newRecipe); 
         handleClose(); 
-      } catch (error) {
-        console.error('Erreur lors de la soumission', error);
-      }
     }
-  };
+};
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -209,7 +209,7 @@ export default function Modal({ isOpen, onClose }) {
             required
           ></textarea>
 
-          <label htmlFor="timing">Temps de préparation</label>
+          <label htmlFor="timing">Temps de préparation (en heures)</label>
           <input 
             type="time" 
             name="timing" 
