@@ -20,7 +20,7 @@ const Navbar = () => {
         </div>
 
         <div className="nav">
-            <h1 className="title">
+            <h1 className="title" onClick={setIsOpenModal2}>
             Ajouter une recette
             <img src={Add} alt="bouton ajouter" className="add" /> 
             <ModalAdd  isOpen={isOpenModal2} onClose={() => setIsOpenModal2(false)}  />

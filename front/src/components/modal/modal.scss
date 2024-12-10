@@ -1,0 +1,182 @@
+// Variables de couleurs
+$primary-color: #FF6F61;
+$secondary-color: #f4f4f4;
+$text-color: #333;
+$border-color: #e0e0e0;
+$input-background: #f9f9f9;
+$hover-color: tomato;
+
+// Mixin pour les transitions fluides
+@mixin transition($property...) {
+  transition: $property 0.3s ease-in-out;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  @include transition(opacity);
+
+  &.active {
+    display: flex;
+    opacity: 1;
+  }
+
+  &__content {
+    background-color: white;
+    width: 550px;
+    max-width: 95%;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    h2 {
+      font-size: 1.5rem;
+      color: $text-color;
+      margin: 0;
+    }
+
+    h1 {
+      cursor: pointer;
+      color: $primary-color;
+      font-size: 1.2rem;
+      @include transition(color);
+
+      &:hover {
+        color: darken($primary-color, 10%);
+      }
+    }
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    .preview {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 2px dashed $border-color;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 15px;
+
+      img {
+        max-width: 200px;
+        max-height: 200px;
+        object-fit: contain;
+        margin-bottom: 15px;
+      }
+
+      label {
+        color: $primary-color;
+        cursor: pointer;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      span {
+        color: lighten($text-color, 30%);
+        font-size: 0.8rem;
+      }
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    label {
+      font-weight: 600;
+      color: $text-color;
+      margin-bottom: 5px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid $border-color;
+      border-radius: 6px;
+      background-color: $input-background;
+      @include transition(border-color, box-shadow);
+
+      &:focus {
+        outline: none;
+        border-color: $primary-color;
+        box-shadow: 0 0 0 2px rgba($primary-color, 0.2);
+      }
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+      line-height: 1.5;
+      font-family: inherit;
+
+      &::placeholder {
+        color: lighten($text-color, 40%);
+        font-style: italic;
+      }
+    }
+
+    hr {
+      margin: 20px 0;
+      border: none;
+      border-top: 1px solid $border-color;
+    }
+  }
+
+  button[form="test"] {
+    width: 100%;
+    padding: 12px;
+    background-color: $primary-color;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    @include transition(background-color);
+
+    &:hover {
+      background-color: $hover-color;
+    }
+  }
+}
+
+// Responsive
+@media screen and (max-width: 600px) {
+  .modal {
+    &__content {
+      width: 95%;
+      padding: 20px;
+    }
+
+    form {
+      gap: 10px;
+
+      textarea {
+        min-height: 100px;
+      }
+    }
+  }
+}
