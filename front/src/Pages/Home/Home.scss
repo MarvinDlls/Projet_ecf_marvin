@@ -10,6 +10,75 @@
     box-sizing: border-box;
     display: grid;
 
+    .filter-container {
+        position: relative;
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 2rem;
+
+        .filter-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            z-index: 10;
+            font-family: 'Open Sans', sans-serif;
+
+            .filter-section {
+                margin-bottom: 20px;
+
+                h4 {
+                    font-size: 16px;
+                    color: #333;
+                    margin-bottom: 10px;
+                    font-weight: 600;
+                }
+
+                button {
+                    background-color: #f0f0f0;
+                    border: none;
+                    border-radius: 5px;
+                    padding: 8px 12px;
+                    margin-right: 10px;
+                    margin-bottom: 10px;
+                    font-size: 14px;
+                    cursor: pointer;
+                    transition: background-color 0.3s ease;
+
+                    &:hover {
+                        background-color: #e0e0e0;
+                    }
+
+                    &.active {
+                        background-color: #FF6F61;
+                        color: white;
+                    }
+                }
+            }
+
+            .reset-filter {
+                width: 100%;
+                background-color: #FF6F61;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                padding: 10px;
+                font-size: 14px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+
+                &:hover {
+                    background-color: #FF3D3D;
+                }
+            }
+        }
+    }
+
     .first {
         background-color: #FF6F61;
         border-radius: 5px;
@@ -144,7 +213,7 @@
                 transition: all .3s;
 
                 &:hover {
-                    background-color: white;
+                    background-color: #FF6F61;
                 }
             }
         }
