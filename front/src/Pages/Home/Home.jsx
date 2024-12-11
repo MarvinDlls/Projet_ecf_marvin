@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { fetchCategories } from "../../Utils/Api";
 import "./Home.scss";
+import { useNavigate } from "react-router-dom";
 import Arrow from "../../assets/arrow.svg";
 import Favori from "../../assets/fill.svg";
 import Favori2 from "../../assets/empty.svg";
@@ -8,6 +9,8 @@ import Trash from "../../assets/trash.svg";
 import Modal from "../../components/modal/modal";
 
 function Home({ isModalOpen, setIsModalOpen }) {
+  const navigate = useNavigate();
+
   const [recipes, setRecipes] = useState(() => {
     const storedRecipes = localStorage.getItem("recipes");
     return storedRecipes ? JSON.parse(storedRecipes) : [];
@@ -49,6 +52,10 @@ function Home({ isModalOpen, setIsModalOpen }) {
       [index]: !prevFavorites[index],
     }));
   };
+
+  const goToFavorites = () => {
+    navigate('/favoris');
+  }
 
   const deleteRecipe = (indexToRemove) => {
     const updatedRecipes = recipes.filter(

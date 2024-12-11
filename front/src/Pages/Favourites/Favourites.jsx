@@ -45,6 +45,8 @@ function Favourite ({isModalOpen, setIsModalOpen}) {
         setRecipes((prevRecipes) => [...prevRecipes, newRecipe]);
       };
     
+      const favoriteRecipes = recipes.filter((_, index) => favorites[index]);
+
       const toggleFavorite = (index) => {
         setFavorites((prevFavorites) => ({
           ...prevFavorites,
@@ -146,8 +148,8 @@ function Favourite ({isModalOpen, setIsModalOpen}) {
       </div>
 
       <div className="home__list">
-        {filteredRecipes.length > 0 ? (
-          filteredRecipes.map((recipe, index) => (
+        {filteredRecipes && favoriteRecipes.length > 0 ? (
+          filteredRecipes && favoriteRecipes.map((recipe, index) => (
             <div key={index} className="recipe-card">
               {recipe.image && <img src={recipe.image} alt={recipe.title} />}
               <img
