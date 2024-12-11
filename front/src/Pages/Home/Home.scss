@@ -71,7 +71,7 @@
         align-items: center; 
 
         .recipe-card {
-
+            position: relative;
             h3 {
                 font-family: 'Pacifico';
                 font-weight: lighter;
@@ -129,8 +129,23 @@
                 width: 250px; 
                 object-fit: cover; 
                 margin: auto; 
-                border: 1px solid #ddd; 
                 border-radius: 5px; 
+                display: block;
+            }
+        
+            .fav {
+                width: 20px;
+                height: 20px;
+                position: absolute;
+                top: 10px; 
+                right: 10px; 
+                cursor: pointer; 
+                z-index: 10; 
+                transition: all .3s;
+
+                &:hover {
+                    background-color: white;
+                }
             }
         }
 
