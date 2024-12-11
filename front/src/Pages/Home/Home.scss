@@ -10,6 +10,9 @@
     box-sizing: border-box;
     display: grid;
 
+
+    
+
     .filter-container {
         position: relative;
         width: 100%;
@@ -125,6 +128,28 @@
     
     button:hover::after {
         opacity: 1;
+    }
+
+    .icon {
+        border-radius: 5px;
+        border: none;
+        margin-top: 2rem;
+        margin-right: 15px;
+        width: 87px;
+        height: 25px;
+        cursor: pointer;
+        font-size: 16px;
+        font-family: 'Open Sans', sans-serif;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    
+        justify-self: start;
+
+        &:hover {
+            background-color: #FF3D3D;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+        }
     }
 
     &__list {
