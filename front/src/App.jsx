@@ -12,7 +12,7 @@ function App() {
       <Navbar openModal={() => setIsModalOpen(true)} />
         <Routes>
           <Route path='/' element={<Home isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />} />
-          <Route path='/favoris' element={<Favourite />}/>
+          <Route path='/favoris' element={<Favourite isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />}/>
         </Routes>
     </BrowserRouter>
   )

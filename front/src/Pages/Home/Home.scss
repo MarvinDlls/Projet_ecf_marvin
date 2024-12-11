@@ -10,15 +10,13 @@
     box-sizing: border-box;
     display: grid;
 
-
-    
-
     .filter-container {
         position: relative;
         width: 100%;
         display: flex;
         justify-content: flex-end;
         margin-top: 2rem;
+        gap: 80%;
 
         .filter-menu {
             position: absolute;
@@ -133,8 +131,8 @@
     .icon {
         border-radius: 5px;
         border: none;
+        background-color: grey;
         margin-top: 2rem;
-        margin-right: 15px;
         width: 87px;
         height: 25px;
         cursor: pointer;

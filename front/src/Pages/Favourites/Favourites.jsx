@@ -7,8 +7,9 @@ import Back from '../../assets/back.svg';
 import { fetchCategories } from "../../Utils/Api";
 import '../Home/Home.scss';
 import { Link } from "react-router-dom";
+import Modal from "../../components/modal/modal";
 
-function Favourite () {
+function Favourite ({isModalOpen, setIsModalOpen}) {
     const [recipes, setRecipes] = useState(() => {
         const storedRecipes = localStorage.getItem("recipes");
         return storedRecipes ? JSON.parse(storedRecipes) : [];
@@ -170,6 +171,11 @@ function Favourite () {
           <p>Aucune recette ne correspond aux filtres sélectionnés.</p>
         )}
       </div>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSubmit={addRecipe}
+      />
     </main>
     )
 }
