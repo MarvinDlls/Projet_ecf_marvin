@@ -170,7 +170,7 @@ function Favourite ({isModalOpen, setIsModalOpen}) {
             </div>
           ))
         ) : (
-          <p>Aucune recette ne correspond aux filtres sélectionnés.</p>
+          <p>Aucune recette présente dans les favoris.</p>
         )}
       </div>
       <Modal
