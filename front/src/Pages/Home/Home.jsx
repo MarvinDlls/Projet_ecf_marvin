@@ -1,19 +1,25 @@
 import { useState, useEffect } from "react";
-import { fetchCategories } from '../../Utils/Api';
-import './Home.scss';
-import Arrow from '../../assets/arrow.svg';
-import Favori from '../../assets/fill.svg';
-import Favori2 from '../../assets/empty.svg';
+import { fetchCategories } from "../../Utils/Api";
+import "./Home.scss";
+import Arrow from "../../assets/arrow.svg";
+import Favori from "../../assets/fill.svg";
+import Favori2 from "../../assets/empty.svg";
+import Trash from "../../assets/trash.svg";
 import Modal from "../../components/modal/modal";
 
 function Home({ isModalOpen, setIsModalOpen }) {
-  const [recipes, setRecipes] = useState([]);
-  const [favorites, setFavorites] = useState({});
+  const [recipes, setRecipes] = useState(() => {
+    const storedRecipes = localStorage.getItem("recipes");
+    return storedRecipes ? JSON.parse(storedRecipes) : [];
+  });
+  const [favorites, setFavorites] = useState(() => {
+    const storedFavorites = localStorage.getItem("favorites");
+    return storedFavorites ? JSON.parse(storedFavorites) : {};
+  });
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [categories, setCategories] = useState([]);
-  
-  const [selectedCuisine, setSelectedCuisine] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedCuisine, setSelectedCuisine] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(() => {
     fetchCategories()
@@ -24,6 +30,14 @@ function Home({ isModalOpen, setIsModalOpen }) {
         console.error("Erreur lors de la récupération des catégories:", error);
       });
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("recipes", JSON.stringify(recipes));
+  }, [recipes]);
+
+  useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [favorites]);
 
   const addRecipe = (newRecipe) => {
     setRecipes((prevRecipes) => [...prevRecipes, newRecipe]);
@@ -36,34 +50,43 @@ function Home({ isModalOpen, setIsModalOpen }) {
     }));
   };
 
+  const deleteRecipe = (indexToRemove) => {
+    const updatedRecipes = recipes.filter(
+      (_, index) => index !== indexToRemove
+    );
+    setRecipes(updatedRecipes);
+
+    const updatedFavorites = { ...favorites };
+    delete updatedFavorites[indexToRemove];
+    setFavorites(updatedFavorites);
+  };
+
   const toggleFilterMenu = () => {
     setIsFilterOpen(!isFilterOpen);
   };
 
   const filteredRecipes = recipes.filter((recipe) => {
     const cuisineMatch = !selectedCuisine || recipe.types === selectedCuisine;
-    const categoryMatch = !selectedCategory || 
+    const categoryMatch =
+      !selectedCategory ||
       recipe.category.toString() === selectedCategory.toString();
     return cuisineMatch && categoryMatch;
   });
 
   const cuisineTypes = [
-    'Italie', 
-    'Maroc', 
-    'Mexique', 
-    'Japon', 
-    'Espagne', 
-    'France'
+    "Italie",
+    "Maroc",
+    "Mexique",
+    "Japon",
+    "Espagne",
+    "France",
   ];
 
   return (
     <main className="home">
       <div className="filter-container">
-        <button 
-          className="first" 
-          onClick={toggleFilterMenu}
-        >
-          Filtrer <img src={Arrow} alt="flèche du bas"  />
+        <button className="first" onClick={toggleFilterMenu}>
+          Filtrer <img src={Arrow} alt="flèche du bas" />
         </button>
 
         {isFilterOpen && (
@@ -73,10 +96,12 @@ function Home({ isModalOpen, setIsModalOpen }) {
               {cuisineTypes.map((cuisine) => (
                 <button
                   key={cuisine}
-                  className={selectedCuisine === cuisine ? 'active' : ''}
-                  onClick={() => setSelectedCuisine(
-                    selectedCuisine === cuisine ? '' : cuisine
-                  )}
+                  className={selectedCuisine === cuisine ? "active" : ""}
+                  onClick={() =>
+                    setSelectedCuisine(
+                      selectedCuisine === cuisine ? "" : cuisine
+                    )
+                  }
                 >
                   {cuisine}
                 </button>
@@ -88,21 +113,23 @@ function Home({ isModalOpen, setIsModalOpen }) {
               {categories.map((category) => (
                 <button
                   key={category.id}
-                  className={selectedCategory === category.id ? 'active' : ''}
-                  onClick={() => setSelectedCategory(
-                    selectedCategory === category.id ? '' : category.id
-                  )}
+                  className={selectedCategory === category.id ? "active" : ""}
+                  onClick={() =>
+                    setSelectedCategory(
+                      selectedCategory === category.id ? "" : category.id
+                    )
+                  }
                 >
                   {category.category}
                 </button>
               ))}
             </div>
 
-            <button 
+            <button
               className="reset-filter"
               onClick={() => {
-                setSelectedCuisine('');
-                setSelectedCategory('');
+                setSelectedCuisine("");
+                setSelectedCategory("");
               }}
             >
               Réinitialiser les filtres
@@ -116,11 +143,17 @@ function Home({ isModalOpen, setIsModalOpen }) {
           filteredRecipes.map((recipe, index) => (
             <div key={index} className="recipe-card">
               {recipe.image && <img src={recipe.image} alt={recipe.title} />}
-              <img 
-                className="fav" 
-                src={favorites[index] ? Favori : Favori2} 
-                alt="Favori" 
-                onClick={() => toggleFavorite(index)} 
+              <img
+                className="fav"
+                src={favorites[index] ? Favori : Favori2}
+                alt="Favori"
+                onClick={() => toggleFavorite(index)}
+              />
+              <img
+                className="trash"
+                src={Trash}
+                alt="supprimer"
+                onClick={() => deleteRecipe(index)}
               />
               <h3>{recipe.title}</h3>
               <p>Temps de préparation: {recipe.timing}</p>
@@ -132,10 +165,10 @@ function Home({ isModalOpen, setIsModalOpen }) {
         )}
       </div>
 
-      <Modal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
-        onSubmit={addRecipe} 
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSubmit={addRecipe}
       />
     </main>
   );

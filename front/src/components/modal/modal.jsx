@@ -5,7 +5,9 @@ import './modal.scss';
 export default function Modal({ isOpen, onClose, onSubmit }) {   
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState(null);
-  const [preview, setPreview] = useState(null);
+  const [preview, setPreview] = useState(() => {
+    return localStorage.getItem('recipeImage') || null;
+  });
   const [formData, setFormData] = useState({
     image: null,
     title: '',
@@ -30,12 +32,20 @@ export default function Modal({ isOpen, onClose, onSubmit }) {
       });
   }, []);
 
+  useEffect(() => {
+    if (formData.image) {
+      const imageURL = URL.createObjectURL(formData.image);
+      setPreview(imageURL);
+      localStorage.setItem('recipeImage', imageURL);
+    }
+  }, [formData.image]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isFormValid()) {
         const newRecipe = {
             ...formData,
-            image: preview, 
+            image: preview,  
         };
         onSubmit(newRecipe); 
         handleClose(); 
@@ -58,7 +68,7 @@ export default function Modal({ isOpen, onClose, onSubmit }) {
         return;
       }
 
-      setPreview(URL.createObjectURL(file));
+      // Mettre à jour l'état de l'image
       setFormData(prev => ({
         ...prev,
         image: file
