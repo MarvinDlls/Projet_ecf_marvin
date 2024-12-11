@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 .home {
     width: 100%;
     max-width: 1240px;
@@ -14,18 +18,78 @@
         margin: 50px 0;
         border-radius: 25px;
 
+        justify-items: center; 
+        align-items: center; 
+
+        .recipe-card {
+
+            h3 {
+                font-family: 'Pacifico';
+                font-weight: lighter;
+                font-size: 16px; 
+            }
+
+            p {
+                font-family: 'Inter';
+                font-size: 16px; 
+            }
+
+            button {
+                background-color: #FF6F61;
+                border-radius: 5px;
+                border: none;
+                width: 87px;
+                height: 25px;
+                cursor: pointer;
+                font-size: 16px;
+                font-family: 'Open Sans', sans-serif;
+                overflow: hidden;
+                color: white;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            }
+            
+            button:hover {
+                background-color: #FF3D3D;
+                box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+            }
+            
+            button:active {
+                background-color: #D83333;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+            }
+            
+            button::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+            
+            button:hover::after {
+                opacity: 1;
+            }
+            
+            img {
+                height: 250px;
+                width: 250px; 
+                object-fit: cover; 
+                margin: auto; 
+                border: 1px solid #ddd; 
+                border-radius: 5px; 
+            }
+        }
+
         @media screen and (max-width: 768px) {
             grid-template-columns: repeat(1, 1fr);
             gap: 20px;
             padding: 0;
             background: white;
         }
-
-        img {
-            height: 271px;
-            width: 310px;
-            object-fit: contain;
-        }
     }
 }
-

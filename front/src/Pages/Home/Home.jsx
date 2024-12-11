@@ -18,7 +18,8 @@ function Home({ isModalOpen, setIsModalOpen }) {
                     <div key={index} className="recipe-card">
                         {recipe.image && <img src={recipe.image} alt={recipe.title} />}
                         <h3>{recipe.title}</h3>
-                        <p>Temps de préparation: {recipe.timing} min</p>                        
+                        <p>Temps de préparation: {recipe.timing} min</p>
+                        <button>Voir plus</button>                        
                     </div>
                 ))}
             </div>
