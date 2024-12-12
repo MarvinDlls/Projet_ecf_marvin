@@ -2,22 +2,20 @@ import { useState, useEffect } from "react";
 import { fetchCategories } from '../../Utils/Api';
 import './modal.scss';
 
-export default function Modal({ isOpen, onClose, onSubmit }) {   
+export default function Modal({ isOpen, onClose, onSubmit }) {
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState(null);
-  const [preview, setPreview] = useState(() => {
-    return localStorage.getItem('recipeImage') || null;
-  });
+  const [preview, setPreview] = useState(null);
   const [formData, setFormData] = useState({
     image: null,
-    title: '',
-    category: '',
-    ingredients: '',
-    types: '',
-    etape: '',
-    timing: '',
-    portions: '',
-    advice: ''
+    title: "",
+    category: "",
+    ingredients: "",
+    types: "",
+    etape: "",
+    timing: "",
+    portions: "",
+    advice: ""
   });
 
   useEffect(() => {
@@ -36,40 +34,42 @@ export default function Modal({ isOpen, onClose, onSubmit }) {
     if (formData.image) {
       const imageURL = URL.createObjectURL(formData.image);
       setPreview(imageURL);
-      localStorage.setItem('recipeImage', imageURL);
+
+      return () => {
+        URL.revokeObjectURL(imageURL); 
+      };
     }
   }, [formData.image]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isFormValid()) {
-        const newRecipe = {
-            ...formData,
-            image: preview,  
-        };
-        onSubmit(newRecipe); 
-        handleClose(); 
+      const newRecipe = {
+        ...formData,
+        image: preview,
+      };
+      onSubmit(newRecipe);
+      handleClose();
     }
-};
+  };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const allowedTypes = ['image/jpeg', 'image/png'];
-      const maxSize = 4 * 1024 * 1024; 
+      const allowedTypes = ["image/jpeg", "image/png"];
+      const maxSize = 4 * 1024 * 1024;
 
       if (!allowedTypes.includes(file.type)) {
-        alert('Seuls les fichiers JPG et PNG sont autorisés');
+        alert("Seuls les fichiers JPG et PNG sont autorisés");
         return;
       }
 
       if (file.size > maxSize) {
-        alert('La taille du fichier ne doit pas dépasser 4 Mo');
+        alert("La taille du fichier ne doit pas dépasser 4 Mo");
         return;
       }
 
-      // Mettre à jour l'état de l'image
-      setFormData(prev => ({
+      setFormData((prev) => ({
         ...prev,
         image: file
       }));
@@ -78,14 +78,13 @@ export default function Modal({ isOpen, onClose, onSubmit }) {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value
     }));
   };
 
   const handleClose = () => {
-    onClose();
     setPreview(null);
     setFormData({
       image: null,
@@ -98,10 +97,11 @@ export default function Modal({ isOpen, onClose, onSubmit }) {
       portions: "",
       advice: ""
     });
+    onClose();
   };
 
   const handleOutsideClick = (e) => {
-    if (e.target.classList.contains('modal-overlay')) {
+    if (e.target.classList.contains("modal-overlay")) {
       handleClose();
     }
   };

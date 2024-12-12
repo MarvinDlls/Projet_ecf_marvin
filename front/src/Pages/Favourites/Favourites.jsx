@@ -3,7 +3,6 @@ import Arrow from "../../assets/arrow.svg";
 import Favori from "../../assets/fill.svg";
 import Favori2 from "../../assets/empty.svg";
 import Trash from "../../assets/trash.svg";
-import Back from "../../assets/back.svg";
 import HomeLink from "../../components/back/HomeLink";
 import { fetchCategories } from "../../Utils/Api";
 import "../Home/Home.scss";
@@ -70,13 +69,15 @@ function Favourite({ isModalOpen, setIsModalOpen }) {
     setIsFilterOpen(!isFilterOpen);
   };
 
-  const filteredRecipes = recipes.filter((recipe) => {
-    const cuisineMatch = !selectedCuisine || recipe.types === selectedCuisine;
-    const categoryMatch =
-      !selectedCategory ||
-      recipe.category.toString() === selectedCategory.toString();
-    return cuisineMatch && categoryMatch;
-  });
+  const filteredRecipes = recipes
+    .filter((_, index) => favorites[index])
+    .filter((recipe) => {
+      const cuisineMatch = !selectedCuisine || recipe.types === selectedCuisine;
+      const categoryMatch =
+        !selectedCategory ||
+        recipe.category.toString() === selectedCategory.toString();
+      return cuisineMatch && categoryMatch;
+    });
 
   const cuisineTypes = [
     "Italie",
@@ -146,9 +147,8 @@ function Favourite({ isModalOpen, setIsModalOpen }) {
       </div>
 
       <div className="home__list">
-        {filteredRecipes && favoriteRecipes.length > 0 ? (
-          filteredRecipes &&
-          favoriteRecipes.map((recipe, index) => (
+        {filteredRecipes.length > 0 ? (
+          filteredRecipes.map((recipe, index) => (
             <div key={index} className="recipe-card">
               {recipe.image && <img src={recipe.image} alt={recipe.title} />}
               <img
@@ -165,8 +165,8 @@ function Favourite({ isModalOpen, setIsModalOpen }) {
               />
               <h3>{recipe.title}</h3>
               <p>Temps de préparation: {recipe.timing}</p>
-              <Link to={'/details'} state={{recipe: recipe}}>
-              <button>Voir plus</button>
+              <Link to={"/details"} state={{ recipe: recipe }}>
+                <button>Voir plus</button>
               </Link>
             </div>
           ))
