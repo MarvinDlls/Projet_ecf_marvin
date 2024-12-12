@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { fetchCategories } from "../../Utils/Api";
 import "./Home.scss";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Arrow from "../../assets/arrow.svg";
 import Favori from "../../assets/fill.svg";
@@ -164,7 +165,9 @@ function Home({ isModalOpen, setIsModalOpen }) {
               />
               <h3>{recipe.title}</h3>
               <p>Temps de préparation: {recipe.timing}</p>
+              <Link to='/details'>
               <button>Voir plus</button>
+              </Link>
             </div>
           ))
         ) : (

@@ -3,96 +3,94 @@ import Arrow from "../../assets/arrow.svg";
 import Favori from "../../assets/fill.svg";
 import Favori2 from "../../assets/empty.svg";
 import Trash from "../../assets/trash.svg";
-import Back from '../../assets/back.svg';
+import Back from "../../assets/back.svg";
+import HomeLink from "../../components/back/HomeLink";
 import { fetchCategories } from "../../Utils/Api";
-import '../Home/Home.scss';
+import "../Home/Home.scss";
 import { Link } from "react-router-dom";
 import Modal from "../../components/modal/modal";
 
-function Favourite ({isModalOpen, setIsModalOpen}) {
-    const [recipes, setRecipes] = useState(() => {
-        const storedRecipes = localStorage.getItem("recipes");
-        return storedRecipes ? JSON.parse(storedRecipes) : [];
-      });
-      const [favorites, setFavorites] = useState(() => {
-        const storedFavorites = localStorage.getItem("favorites");
-        return storedFavorites ? JSON.parse(storedFavorites) : {};
-      });
-      const [isFilterOpen, setIsFilterOpen] = useState(false);
-      const [categories, setCategories] = useState([]);
-      const [selectedCuisine, setSelectedCuisine] = useState("");
-      const [selectedCategory, setSelectedCategory] = useState("");
-    
-      useEffect(() => {
-        fetchCategories()
-          .then((data) => {
-            setCategories(data);
-          })
-          .catch((error) => {
-            console.error("Erreur lors de la récupération des catégories:", error);
-          });
-      }, []);
-    
-      useEffect(() => {
-        localStorage.setItem("recipes", JSON.stringify(recipes));
-      }, [recipes]);
-    
-      useEffect(() => {
-        localStorage.setItem("favorites", JSON.stringify(favorites));
-      }, [favorites]);
-    
-      const addRecipe = (newRecipe) => {
-        setRecipes((prevRecipes) => [...prevRecipes, newRecipe]);
-      };
-    
-      const favoriteRecipes = recipes.filter((_, index) => favorites[index]);
+function Favourite({ isModalOpen, setIsModalOpen }) {
+  const [recipes, setRecipes] = useState(() => {
+    const storedRecipes = localStorage.getItem("recipes");
+    return storedRecipes ? JSON.parse(storedRecipes) : [];
+  });
+  const [favorites, setFavorites] = useState(() => {
+    const storedFavorites = localStorage.getItem("favorites");
+    return storedFavorites ? JSON.parse(storedFavorites) : {};
+  });
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [selectedCuisine, setSelectedCuisine] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
 
-      const toggleFavorite = (index) => {
-        setFavorites((prevFavorites) => ({
-          ...prevFavorites,
-          [index]: !prevFavorites[index],
-        }));
-      };
-    
-      const deleteRecipe = (indexToRemove) => {
-        const updatedRecipes = recipes.filter(
-          (_, index) => index !== indexToRemove
-        );
-        setRecipes(updatedRecipes);
-    
-        const updatedFavorites = { ...favorites };
-        delete updatedFavorites[indexToRemove];
-        setFavorites(updatedFavorites);
-      };
-    
-      const toggleFilterMenu = () => {
-        setIsFilterOpen(!isFilterOpen);
-      };
-    
-      const filteredRecipes = recipes.filter((recipe) => {
-        const cuisineMatch = !selectedCuisine || recipe.types === selectedCuisine;
-        const categoryMatch =
-          !selectedCategory ||
-          recipe.category.toString() === selectedCategory.toString();
-        return cuisineMatch && categoryMatch;
+  useEffect(() => {
+    fetchCategories()
+      .then((data) => {
+        setCategories(data);
+      })
+      .catch((error) => {
+        console.error("Erreur lors de la récupération des catégories:", error);
       });
-    
-      const cuisineTypes = [
-        "Italie",
-        "Maroc",
-        "Mexique",
-        "Japon",
-        "Espagne",
-        "France",
-      ];
+  }, []);
 
-    return(
-        <main className="home">
+  useEffect(() => {
+    localStorage.setItem("recipes", JSON.stringify(recipes));
+  }, [recipes]);
+
+  useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [favorites]);
+
+  const addRecipe = (newRecipe) => {
+    setRecipes((prevRecipes) => [...prevRecipes, newRecipe]);
+  };
+
+  const favoriteRecipes = recipes.filter((_, index) => favorites[index]);
+
+  const toggleFavorite = (index) => {
+    setFavorites((prevFavorites) => ({
+      ...prevFavorites,
+      [index]: !prevFavorites[index],
+    }));
+  };
+
+  const deleteRecipe = (indexToRemove) => {
+    const updatedRecipes = recipes.filter(
+      (_, index) => index !== indexToRemove
+    );
+    setRecipes(updatedRecipes);
+
+    const updatedFavorites = { ...favorites };
+    delete updatedFavorites[indexToRemove];
+    setFavorites(updatedFavorites);
+  };
+
+  const toggleFilterMenu = () => {
+    setIsFilterOpen(!isFilterOpen);
+  };
+
+  const filteredRecipes = recipes.filter((recipe) => {
+    const cuisineMatch = !selectedCuisine || recipe.types === selectedCuisine;
+    const categoryMatch =
+      !selectedCategory ||
+      recipe.category.toString() === selectedCategory.toString();
+    return cuisineMatch && categoryMatch;
+  });
+
+  const cuisineTypes = [
+    "Italie",
+    "Maroc",
+    "Mexique",
+    "Japon",
+    "Espagne",
+    "France",
+  ];
+
+  return (
+    <main className="home">
       <div className="filter-container">
-
-        <Link to={'/'}>
-        <img className="icon" src={Back} alt="retour home" />
-        </Link>
+        <HomeLink />
 
         <button className="first" onClick={toggleFilterMenu}>
           Filtrer <img src={Arrow} alt="flèche du bas" />
@@ -149,7 +147,8 @@ function Favourite ({isModalOpen, setIsModalOpen}) {
 
       <div className="home__list">
         {filteredRecipes && favoriteRecipes.length > 0 ? (
-          filteredRecipes && favoriteRecipes.map((recipe, index) => (
+          filteredRecipes &&
+          favoriteRecipes.map((recipe, index) => (
             <div key={index} className="recipe-card">
               {recipe.image && <img src={recipe.image} alt={recipe.title} />}
               <img
@@ -179,7 +178,7 @@ function Favourite ({isModalOpen, setIsModalOpen}) {
         onSubmit={addRecipe}
       />
     </main>
-    )
+  );
 }
 
 export default Favourite;
