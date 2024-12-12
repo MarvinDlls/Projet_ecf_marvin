@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import HomeLink from "../../components/back/HomeLink";
 import Modal from "../../components/modal/modal";
 import { fetchCategories } from "../../Utils/Api";
+import './Details.scss';
 
 function Details({ isModalOpen, setIsModalOpen }) {
   const location = useLocation();
@@ -54,55 +55,68 @@ function Details({ isModalOpen, setIsModalOpen }) {
     return [];
   };
 
-  const parseInstructions = (instructions) => {
-    if (Array.isArray(instructions)) return instructions;
-    if (typeof instructions === 'string') {
-      return instructions.split(/[.|\n]/).map(step => step.trim()).filter(step => step);
+  const parseEtape = (etapes) => {
+    if (Array.isArray(etapes)) return etapes;
+    if (typeof etapes === 'string') {
+      return etapes.split(/[.|\n]/).map(step => step.trim()).filter(step => step);
     }
     return [];
   };
+
+  const parsePortions = (portion) => {
+    if (Array.isArray(portion)) return etapes;
+    if (typeof portion === 'string') {
+      return portion.split(/[.|\n]/).map(step => step.trim()).filter(step => step);
+    }
+    return [];
+  };
+  
 
   const recipeCategory = categories.find(
     category => category.id.toString() === recipe.category.toString()
   );
 
+  const portions = parsePortions(recipe.portion);
   const ingredients = parseIngredients(recipe.ingredients);
-  const instructions = parseInstructions(recipe.instructions);
+  const etape = parseEtape(recipe.etape);
 
   return (
-    <main className="home">
-      <HomeLink />
-      <div className="recipe-details">
-        <div className="recipe-card-detail">
+    <main className="detail">
+      <HomeLink/>
+      <div className="detail__list">
+        <div className="detail-card">
+        <h1 className="titre">{recipe.title}</h1>
           {recipe.image && <img src={recipe.image} alt={recipe.title} />}
-          <div className="recipe-info">
-            <h2>{recipe.title}</h2>
-            <p>Temps de préparation: {recipe.timing}</p>
-            <p>Type de cuisine: {recipe.types}</p>
-            <p>Catégorie: {recipeCategory ? recipeCategory.category : 'Non spécifiée'}</p>
+          <div className="details-info">
+            
+                
+            <p>Type de cuisine: <span className="type">{recipe.types}</span></p>
+            <p>Catégorie: <span className="categorie">{recipeCategory ? recipeCategory.category : 'Non spécifiée'}</span></p>
 
             {ingredients.length > 0 && (
               <div className="ingredients">
                 <h3>Ingrédients</h3>
                 <ul>
                   {ingredients.map((ingredient, index) => (
-                    <li key={index}>{ingredient}</li>
+                    <li className="ingredient" key={index}>{ingredient}</li>
                   ))}
                 </ul>
               </div>
             )}
 
-            {instructions.length > 0 && (
+            {etape.length > 0 && (
               <div className="instructions">
-                <h3>Instructions</h3>
+                <h3>Étapes</h3>
                 <ol>
-                  {instructions.map((step, index) => (
-                    <li key={index}>{step}</li>
+                  {etape.map((step, index) => (
+                    <li className="etape" key={index}>{step}</li>
                   ))}
                 </ol>
               </div>
             )}
           </div>
+          <p>Temps de préparation: <span className="timing">{recipe.timing}</span></p>
+          <p>Portions: <span className="portion">{recipe.portions}</span></p>
         </div>
       </div>
       <Modal
