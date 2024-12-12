@@ -165,7 +165,7 @@ function Home({ isModalOpen, setIsModalOpen }) {
               />
               <h3>{recipe.title}</h3>
               <p>Temps de préparation: {recipe.timing}</p>
-              <Link to='/details'>
+              <Link to={'/details'} state={{recipe: recipe}}>
               <button>Voir plus</button>
               </Link>
             </div>
