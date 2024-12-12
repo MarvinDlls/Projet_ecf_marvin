@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import '../Home/Home.scss';
+import "../Home/Home.scss";
 import { useLocation } from "react-router-dom";
 import HomeLink from "../../components/back/HomeLink";
 import Modal from "../../components/modal/modal";
 import { fetchCategories } from "../../Utils/Api";
-import './Details.scss';
+import "./Details.scss";
 
 function Details({ isModalOpen, setIsModalOpen }) {
   const location = useLocation();
@@ -49,31 +49,39 @@ function Details({ isModalOpen, setIsModalOpen }) {
 
   const parseIngredients = (ingredients) => {
     if (Array.isArray(ingredients)) return ingredients;
-    if (typeof ingredients === 'string') {
-      return ingredients.split(/[,\n]/).map(ing => ing.trim()).filter(ing => ing);
+    if (typeof ingredients === "string") {
+      return ingredients
+        .split(/[,\n]/)
+        .map((ing) => ing.trim())
+        .filter((ing) => ing);
     }
     return [];
   };
 
   const parseEtape = (etapes) => {
     if (Array.isArray(etapes)) return etapes;
-    if (typeof etapes === 'string') {
-      return etapes.split(/[.|\n]/).map(step => step.trim()).filter(step => step);
+    if (typeof etapes === "string") {
+      return etapes
+        .split(/[.|\n]/)
+        .map((step) => step.trim())
+        .filter((step) => step);
     }
     return [];
   };
 
   const parsePortions = (portion) => {
     if (Array.isArray(portion)) return etapes;
-    if (typeof portion === 'string') {
-      return portion.split(/[.|\n]/).map(step => step.trim()).filter(step => step);
+    if (typeof portion === "string") {
+      return portion
+        .split(/[.|\n]/)
+        .map((step) => step.trim())
+        .filter((step) => step);
     }
     return [];
   };
-  
 
   const recipeCategory = categories.find(
-    category => category.id.toString() === recipe.category.toString()
+    (category) => category.id.toString() === recipe.category.toString()
   );
 
   const portions = parsePortions(recipe.portion);
@@ -82,23 +90,32 @@ function Details({ isModalOpen, setIsModalOpen }) {
 
   return (
     <main className="detail">
-      <HomeLink/>
+      <HomeLink />
       <div className="detail__list">
         <div className="detail-card">
-        <h1 className="titre">{recipe.title}</h1>
-          {recipe.image && <img src={recipe.image} alt={recipe.title} />}
+          <h1 className="titre">{recipe.title}</h1>
+          {recipe.image && (
+            <img className="image" src={recipe.image} alt={recipe.title} />
+          )}
           <div className="details-info">
-            
-                
-            <p>Type de cuisine: <span className="type">{recipe.types}</span></p>
-            <p>Catégorie: <span className="categorie">{recipeCategory ? recipeCategory.category : 'Non spécifiée'}</span></p>
+            <p>
+              Type de cuisine: <span className="type">{recipe.types}</span>
+            </p>
+            <p>
+              Catégorie:{" "}
+              <span className="categorie">
+                {recipeCategory ? recipeCategory.category : "Non spécifiée"}
+              </span>
+            </p>
 
             {ingredients.length > 0 && (
               <div className="ingredients">
-                <h3>Ingrédients</h3>
+                <p>Ingrédients:</p>
                 <ul>
                   {ingredients.map((ingredient, index) => (
-                    <li className="ingredient" key={index}>{ingredient}</li>
+                    <li className="ingredient" key={index}>
+                      {ingredient}
+                    </li>
                   ))}
                 </ul>
               </div>
@@ -106,17 +123,24 @@ function Details({ isModalOpen, setIsModalOpen }) {
 
             {etape.length > 0 && (
               <div className="instructions">
-                <h3>Étapes</h3>
-                <ol>
+                <p>Étapes:</p>
+                <ul>
                   {etape.map((step, index) => (
-                    <li className="etape" key={index}>{step}</li>
+                    <li className="etape" key={index}>
+                      {step}
+                    </li>
                   ))}
-                </ol>
+                </ul>
               </div>
             )}
+            <p>
+              Temps de préparation:{" "}
+              <span className="timing">{recipe.timing}</span>
+            </p>
+            <p>
+              Portions: <span className="portion">{recipe.portions}</span>
+            </p>
           </div>
-          <p>Temps de préparation: <span className="timing">{recipe.timing}</span></p>
-          <p>Portions: <span className="portion">{recipe.portions}</span></p>
         </div>
       </div>
       <Modal

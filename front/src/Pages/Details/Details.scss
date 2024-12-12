@@ -10,7 +10,17 @@
     padding: 0 20px;
     box-sizing: border-box;
     display: grid;
-    
+    grid-template-areas:
+        "titre"
+        "image"
+        "categorie"
+        "type"
+        "ingredient"
+        "etape"
+        "timing"
+        "portion";
+    justify-content: center;
+    gap: 20px;
 
     .icon {
         border-radius: 5px;
@@ -37,48 +47,79 @@
     &__list {
         background: #f8f9fa;
         padding: 50px;
-        gap: 50px;
         margin: 10px 0;
         border-radius: 25px;
-
-        justify-items: center; 
+        width: 1200px;
+        display: grid;
+        justify-items: center;
         align-items: center;
 
         .detail-card {
-            border: 1px solid black;
             padding: auto;
             margin: auto;
+            width: 100%;
 
-            .categorie {
-                font-family: 'Lora';
-            }
-
-            .type {
-                font-family: 'Lora';
-            }
-            
             .titre {
+                grid-area: titre;
                 font-family: 'Pacifico';
                 font-size: 3rem;
                 font-weight: lighter;
             }
 
-            .ingredient {
+            .image {
+                grid-area: image;
+                height: 250px;
+                width: 250px; 
+                object-fit: cover;
+                border-radius: 5px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            .categorie {
+                grid-area: categorie;
                 font-family: 'Lora';
+                font-weight: bold;
+            }
+
+            .type {
+                grid-area: type;
+                font-family: 'Lora';
+                font-weight: bold;
+            }
+
+            .ingredient {
+                grid-area: ingredient;
+                font-family: 'Lora';
+                font-weight: bold;
             }
 
             .etape {
+                grid-area: etape;
                 font-family: 'Lora';
+                font-weight: bold;
             }
 
             .timing {
+                grid-area: timing;
                 font-family: 'Lora';
+                font-weight: bold;
             }
 
             .portion {
+                grid-area: portion;
                 font-family: 'Lora';
+                font-weight: bold;
+            }
+
+            p {
+                font-family: 'Open sans';
+                font-size: 16px;
+                font-weight: lighter;
+            }
+
+            .details-info {
+                align-items: flex-start;
             }
         }
-
     }
 }
