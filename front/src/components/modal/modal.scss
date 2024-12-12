@@ -1,14 +1,12 @@
-// Variables de couleurs
-$primary-color: #FF6F61; 
-$secondary-color: #f4f4f4; 
-$text-color: #333; 
-$border-color: #e0e0e0; 
-$input-background: #f9f9f9; 
+$primary-color: #FF6F61;
+$secondary-color: #f4f4f4;
+$text-color: #333;
+$border-color: #e0e0e0;
+$input-background: #f9f9f9;
 $hover-color: tomato;
 
-// Mixin pour les transitions fluides
-@mixin transition($property...) {   
-  transition: $property 0.3s ease-in-out; 
+@mixin transition($property...) {
+  transition: $property 0.3s ease-in-out;
 }
 
 .modal-overlay {
@@ -53,17 +51,41 @@ $hover-color: tomato;
         margin: 0;
       }
 
-      button {
-        cursor: pointer;
-        color: $primary-color;
-        font-size: 1.2rem;
-        @include transition(color);
-        border-color: transparent;
-        background-color: inherit;
 
-        &:hover {
-          color: darken($primary-color, 40%);
-        }
+    }
+
+    p {
+      cursor: pointer;
+      color: #000;
+      font-size: 1.2rem;
+      @include transition(color);
+      border-radius: 5px;
+      background-color: inherit;
+
+      &:hover {
+        color: $primary-color;
+      }
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: $primary-color;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      @include transition(background-color);
+
+      &:hover {
+        background-color: $hover-color;
+      }
+
+      &.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        background-color: grey;
       }
     }
 
@@ -82,11 +104,11 @@ $hover-color: tomato;
         font-weight: bold;
         cursor: pointer;
         @include transition(background-color);
-      
+
         &:hover {
           background-color: $hover-color;
         }
-      
+
         &.disabled {
           opacity: 0.5;
           cursor: not-allowed;
@@ -135,7 +157,9 @@ $hover-color: tomato;
         margin-bottom: 5px;
       }
 
-      input, select, textarea {
+      input,
+      select,
+      textarea {
         width: 100%;
         padding: 10px;
         border: 1px solid $border-color;
@@ -168,7 +192,7 @@ $hover-color: tomato;
         border-top: 1px solid $border-color;
       }
     }
-  } 
+  }
 }
 
 // Responsive

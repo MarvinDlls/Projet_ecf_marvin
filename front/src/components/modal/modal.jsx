@@ -129,7 +129,7 @@ export default function Modal({ isOpen, onClose, onSubmit }) {
       <div className="modal-content">
         <div className="modal__header">
           <h2>Ajouter une recette</h2>
-          <button onClick={handleClose}>X</button>
+          <p onClick={handleClose}>X</p>
         </div>
 
         <form id="test" onSubmit={handleSubmit}>
