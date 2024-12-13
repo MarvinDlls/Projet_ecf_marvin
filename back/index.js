@@ -3,25 +3,35 @@ const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
 const recipeRoute = require('./routes/recipe');
-const infoRoutes = require ('./routes/api');
+const infoRoutes = require('./routes/api');
 
-mongoose.connect("mongodb://localhost:27017/recipe")
+// Configuration de la connexion MongoDB
+const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/recipe";
+mongoose.connect(MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
     .then(() => {
-        console.log("Connexion effectuée");
-    }).catch((error) => {
-        console.log(error);
+        console.log("Connexion MongoDB effectuée");
     })
+    .catch((error) => {
+        console.error("Erreur de connexion à MongoDB :", error);
+    });
 
+// Middleware
 app.use(cors({
-    origin: 'http://localhost:5173'
+    origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
 }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Routes
 app.use("/recipe", recipeRoute);
 app.use("/api", infoRoutes);
 
-app.listen(3001, () => {
-    console.log("L'API est lancée sur l'url http://localhost:3001");
-})
+// Configuration du port
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+    console.log(`L'API est lancée sur l'url http://localhost:${PORT}`);
+});
