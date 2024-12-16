@@ -89,8 +89,19 @@
             }
         }
     }
+    .icon {
+        margin-top: 2rem;
+        width: 87px;
+        height: 25px;
+        cursor: pointer;
+        font-size: 16px;
+        font-family: 'Open Sans', sans-serif;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
 
-    .first, .icon {
+    .first {
         margin-top: 2rem;
         width: 87px;
         height: 25px;
@@ -122,6 +133,7 @@
 
     .icon {
         background-color: grey;
+        border-radius: 5px;
         justify-self: start;
 
         &:hover {
