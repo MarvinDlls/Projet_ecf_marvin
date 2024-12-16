@@ -16,7 +16,11 @@
         display: flex;
         justify-content: flex-end;
         margin-top: 2rem;
-        gap: 80%;
+
+        @media screen and (max-width: 768px) {
+            justify-content: center;
+            margin-top: 1rem;
+        }
 
         .filter-menu {
             position: absolute;
@@ -29,6 +33,12 @@
             width: 300px;
             z-index: 10;
             font-family: 'Open Sans', sans-serif;
+
+            @media screen and (max-width: 768px) {
+                position: static;
+                width: 100%;
+                margin: 0 auto;
+            }
 
             .filter-section {
                 margin-bottom: 20px;
@@ -80,12 +90,8 @@
         }
     }
 
-    .first {
-        background-color: #FF6F61;
-        border-radius: 5px;
-        border: none;
+    .first, .icon {
         margin-top: 2rem;
-        margin-right: 15px;
         width: 87px;
         height: 25px;
         cursor: pointer;
@@ -95,58 +101,60 @@
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         transition: background-color 0.3s ease, box-shadow 0.3s ease;
 
+        @media screen and (max-width: 768px) {
+            width: 100%;
+            max-width: 200px;
+            margin-top: 1rem;
+        }
+    }
+
+    .first {
+        background-color: #FF6F61;
+        border-radius: 5px;
+        border: none;
+        margin-right: 15px;
         justify-self: end;
 
         img {
             margin-bottom: 2px;
         }
     }
-    
-    button:hover {
-        background-color: #FF3D3D;
-        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
-    }
-    
-    button:active {
-        background-color: #D83333;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-    }
-    
-    button::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-    
-    button:hover::after {
-        opacity: 1;
-    }
 
     .icon {
-        border-radius: 5px;
-        border: none;
         background-color: grey;
-        margin-top: 2rem;
-        width: 87px;
-        height: 25px;
-        cursor: pointer;
-        font-size: 16px;
-        font-family: 'Open Sans', sans-serif;
-        overflow: hidden;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    
         justify-self: start;
 
         &:hover {
             background-color: #FF3D3D;
             box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+        }
+    }
+
+    button {
+        &:hover {
+            background-color: #FF3D3D;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        &:active {
+            background-color: #D83333;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+        }
+        
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        &:hover::after {
+            opacity: 1;
         }
     }
 
@@ -158,12 +166,27 @@
         gap: 50px;
         margin: 10px 0;
         border-radius: 25px;
-
         justify-items: center; 
         align-items: center; 
 
+        @media screen and (max-width: 1024px) {
+            grid-template-columns: repeat(2, 1fr);
+            padding: 30px;
+            gap: 30px;
+        }
+
+        @media screen and (max-width: 768px) {
+            grid-template-columns: repeat(1, 1fr);
+            gap: 20px;
+            padding: 15px;
+            background: white;
+        }
+
         .recipe-card {
             position: relative;
+            width: 100%;
+            max-width: 250px;
+
             h3 {
                 font-family: 'Pacifico';
                 font-weight: lighter;
@@ -188,32 +211,11 @@
                 color: white;
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
                 transition: background-color 0.3s ease, box-shadow 0.3s ease;
-            }
-            
-            button:hover {
-                background-color: #FF3D3D;
-                box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
-            }
-            
-            button:active {
-                background-color: #D83333;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-            }
-            
-            button::after {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                pointer-events: none;
-                opacity: 0;
-                transition: opacity 0.3s ease;
-            }
-            
-            button:hover::after {
-                opacity: 1;
+
+                @media screen and (max-width: 768px) {
+                    width: 100%;
+                    max-width: 200px;
+                }
             }
             
             img {
@@ -223,17 +225,26 @@
                 margin: auto; 
                 border-radius: 5px; 
                 display: block;
+                max-width: 100%;
+
+                @media screen and (max-width: 768px) {
+                    width: 100%;
+                    height: auto;
+                }
             }
         
-            .fav {
+            .fav, .trash {
                 width: 20px;
                 height: 20px;
                 position: absolute;
                 top: 10px; 
-                right: 10px; 
                 cursor: pointer; 
                 z-index: 10; 
                 transition: all .3s;
+            }
+
+            .fav {
+                right: 10px;
 
                 &:hover {
                     background-color: #FF6F61;
@@ -241,28 +252,18 @@
             }
 
             .trash {
-                width: 20px;
-                height: 20px;
-                position: absolute;
-                top: 10px; 
-                right: 50px; 
-                cursor: pointer; 
-                z-index: 10; 
-                transition: all .3s;
+                right: 50px;
 
                 &:hover {
                     background-color: red;
                     width: 30px;
                     height: 30px;
                 }
-            }
-        }
 
-        @media screen and (max-width: 768px) {
-            grid-template-columns: repeat(1, 1fr);
-            gap: 20px;
-            padding: 0;
-            background: white;
+                @media screen and (max-width: 768px) {
+                    right: 40px;
+                }
+            }
         }
     }
 }
