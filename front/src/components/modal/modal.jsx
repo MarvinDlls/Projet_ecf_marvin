@@ -44,12 +44,20 @@ export default function Modal({ isOpen, onClose, onSubmit }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isFormValid()) {
-      const newRecipe = {
-        ...formData,
-        image: preview,
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64Image = reader.result; 
+        const newRecipe = {
+          ...formData,
+          image: base64Image, 
+        };
+        
+        localStorage.setItem('recipeImage', base64Image);
+
+        onSubmit(newRecipe);
+        handleClose();
       };
-      onSubmit(newRecipe);
-      handleClose();
+      reader.readAsDataURL(formData.image); 
     }
   };
 
