@@ -8,16 +8,25 @@ import { fetchCategories } from "../../Utils/Api";
 import "../Home/Home.scss";
 import { Link } from "react-router-dom";
 import Modal from "../../components/modal/modal";
+import { v4 as uuidv4 } from 'uuid'; // Assurez-vous d'installer uuid avec npm install uuid
 
 function Favourite({ isModalOpen, setIsModalOpen }) {
   const [recipes, setRecipes] = useState(() => {
     const storedRecipes = localStorage.getItem("recipes");
-    return storedRecipes ? JSON.parse(storedRecipes) : [];
+    // Ajoutez un identifiant unique si absent
+    return storedRecipes 
+      ? JSON.parse(storedRecipes).map(recipe => ({
+          ...recipe, 
+          id: recipe.id || uuidv4()
+        })) 
+      : [];
   });
+
   const [favorites, setFavorites] = useState(() => {
     const storedFavorites = localStorage.getItem("favorites");
     return storedFavorites ? JSON.parse(storedFavorites) : {};
   });
+
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [categories, setCategories] = useState([]);
   const [selectedCuisine, setSelectedCuisine] = useState("");
@@ -34,7 +43,12 @@ function Favourite({ isModalOpen, setIsModalOpen }) {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("recipes", JSON.stringify(recipes));
+    // Assurez-vous que chaque recette a un identifiant unique avant de sauvegarder
+    const recipesWithIds = recipes.map(recipe => ({
+      ...recipe, 
+      id: recipe.id || uuidv4()
+    }));
+    localStorage.setItem("recipes", JSON.stringify(recipesWithIds));
   }, [recipes]);
 
   useEffect(() => {
@@ -42,26 +56,27 @@ function Favourite({ isModalOpen, setIsModalOpen }) {
   }, [favorites]);
 
   const addRecipe = (newRecipe) => {
-    setRecipes((prevRecipes) => [...prevRecipes, newRecipe]);
+    // Ajoutez un identifiant unique à la nouvelle recette
+    const recipeWithId = { 
+      ...newRecipe, 
+      id: uuidv4() 
+    };
+    setRecipes((prevRecipes) => [...prevRecipes, recipeWithId]);
   };
 
-  const favoriteRecipes = recipes.filter((_, index) => favorites[index]);
-
-  const toggleFavorite = (index) => {
+  const toggleFavorite = (recipeId) => {
     setFavorites((prevFavorites) => ({
       ...prevFavorites,
-      [index]: !prevFavorites[index],
+      [recipeId]: !prevFavorites[recipeId],
     }));
   };
 
-  const deleteRecipe = (indexToRemove) => {
-    const updatedRecipes = recipes.filter(
-      (_, index) => index !== indexToRemove
-    );
+  const deleteRecipe = (recipeId) => {
+    const updatedRecipes = recipes.filter((recipe) => recipe.id !== recipeId);
     setRecipes(updatedRecipes);
 
     const updatedFavorites = { ...favorites };
-    delete updatedFavorites[indexToRemove];
+    delete updatedFavorites[recipeId];
     setFavorites(updatedFavorites);
   };
 
@@ -70,7 +85,7 @@ function Favourite({ isModalOpen, setIsModalOpen }) {
   };
 
   const filteredRecipes = recipes
-    .filter((_, index) => favorites[index])
+    .filter((recipe) => favorites[recipe.id])
     .filter((recipe) => {
       const cuisineMatch = !selectedCuisine || recipe.types === selectedCuisine;
       const categoryMatch =
@@ -148,20 +163,20 @@ function Favourite({ isModalOpen, setIsModalOpen }) {
 
       <div className="home__list">
         {filteredRecipes.length > 0 ? (
-          filteredRecipes.map((recipe, index) => (
-            <div key={index} className="recipe-card">
+          filteredRecipes.map((recipe) => (
+            <div key={recipe.id} className="recipe-card">
               {recipe.image && <img src={recipe.image} alt={recipe.title} />}
               <img
                 className="fav"
-                src={favorites[index] ? Favori : Favori2}
+                src={favorites[recipe.id] ? Favori : Favori2}
                 alt="Favori"
-                onClick={() => toggleFavorite(index)}
+                onClick={() => toggleFavorite(recipe.id)}
               />
               <img
                 className="trash"
                 src={Trash}
                 alt="supprimer"
-                onClick={() => deleteRecipe(index)}
+                onClick={() => deleteRecipe(recipe.id)}
               />
               <h3>{recipe.title}</h3>
               <p>Temps de préparation: {recipe.timing}</p>
