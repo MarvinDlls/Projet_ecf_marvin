@@ -82,11 +82,13 @@ function Home({ isModalOpen, setIsModalOpen }) {
   });
 
   const cuisineTypes = [
-    "Italie",
-    "Maroc",
-    "Mexique",
-    "Japon",
-    "Espagne",
+    "Italienne",
+    "Marocaine",
+    "Mexicaine",
+    "Japonaise",
+    "Espagnol",
+    "Américaine",
+    "Turque",
     "France",
   ];
 
