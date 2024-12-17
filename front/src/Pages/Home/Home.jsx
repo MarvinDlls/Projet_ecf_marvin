@@ -86,7 +86,7 @@ function Home({ isModalOpen, setIsModalOpen }) {
     "Marocaine",
     "Mexicaine",
     "Japonaise",
-    "Espagnol",
+    "Espagnole",
     "Américaine",
     "Turque",
     "France",

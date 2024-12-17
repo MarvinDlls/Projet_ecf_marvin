@@ -213,7 +213,7 @@ export default function Modal({ isOpen, onClose, onSubmit }) {
             <option value="Maroc">Marocaine</option>
             <option value="Mexique">Mexicaine</option>
             <option value="Japon">Japonaise</option>
-            <option value="Espagne">Espagnol</option>
+            <option value="Espagne">Espagnole</option>
             <option value="Espagne">Américaine</option>
             <option value="Espagne">Turque</option>
             <option value="France">Française</option>
