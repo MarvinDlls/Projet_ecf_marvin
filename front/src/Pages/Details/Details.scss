@@ -110,7 +110,6 @@
                 }
             }
 
-            // Common styling for sections
             .categorie, 
             .type, 
             .ingredient, 
@@ -160,7 +159,6 @@
         }
     }
 
-    // Responsive layout for larger screens
     @media screen and (min-width: 1024px) {
         &__list .detail-card {
             grid-template-areas: 
