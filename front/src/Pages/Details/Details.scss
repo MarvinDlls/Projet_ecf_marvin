@@ -9,18 +9,10 @@
     margin: 0 auto;
     padding: 0 20px;
     box-sizing: border-box;
-    display: grid;
-    grid-template-areas:
-        "titre"
-        "image"
-        "categorie"
-        "type"
-        "ingredient"
-        "etape"
-        "timing"
-        "portion";
-    justify-content: center;
-    gap: 20px;
+
+    @media screen and (max-width: 768px) {
+        padding: 0 10px;
+    }
 
     .icon {
         border-radius: 5px;
@@ -35,8 +27,13 @@
         overflow: hidden;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    
         justify-self: start;
+
+        @media screen and (max-width: 768px) {
+            width: 100%;
+            max-width: 200px;
+            margin-top: 1rem;
+        }
 
         &:hover {
             background-color: #FF3D3D;
@@ -49,76 +46,142 @@
         padding: 50px;
         margin: 10px 0;
         border-radius: 25px;
-        width: 1200px;
+        width: 100%;
+        max-width: 1200px;
         display: grid;
         justify-items: center;
         align-items: center;
+        
+        @media screen and (max-width: 1024px) {
+            padding: 30px;
+        }
+
+        @media screen and (max-width: 768px) {
+            padding: 15px;
+            border-radius: 15px;
+        }
 
         .detail-card {
-            padding: auto;
-            margin: auto;
             width: 100%;
+            display: grid;
+            grid-template-areas: 
+                "titre"
+                "image"
+                "categorie"
+                "type"
+                "ingredient"
+                "etape"
+                "timing"
+                "portion";
+            gap: 20px;
+            align-items: center;
+            justify-items: center;
+
+            @media screen and (max-width: 768px) {
+                gap: 15px;
+            }
 
             .titre {
                 grid-area: titre;
                 font-family: 'Pacifico';
                 font-size: 3rem;
                 font-weight: lighter;
+                text-align: center;
+                width: 100%;
+
+                @media screen and (max-width: 768px) {
+                    font-size: 2rem;
+                }
             }
 
             .image {
                 grid-area: image;
-                height: 250px;
-                width: 250px; 
+                max-height: 250px;
+                max-width: 250px;
+                width: 100%;
+                height: auto;
                 object-fit: cover;
                 border-radius: 5px;
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+                @media screen and (max-width: 768px) {
+                    max-width: 100%;
+                    max-height: 300px;
+                }
             }
 
-            .categorie {
-                grid-area: categorie;
-                font-family: 'Lora';
-                font-weight: bold;
-            }
-
-            .type {
-                grid-area: type;
-                font-family: 'Lora';
-                font-weight: bold;
-            }
-
-            .ingredient {
-                grid-area: ingredient;
-                font-family: 'Lora';
-                font-weight: bold;
-            }
-
-            .etape {
-                grid-area: etape;
-                font-family: 'Lora';
-                font-weight: bold;
-            }
-
-            .timing {
-                grid-area: timing;
-                font-family: 'Lora';
-                font-weight: bold;
-            }
-
+            // Common styling for sections
+            .categorie, 
+            .type, 
+            .ingredient, 
+            .etape, 
+            .timing, 
             .portion {
-                grid-area: portion;
                 font-family: 'Lora';
                 font-weight: bold;
+                width: 100%;
+                text-align: left;
+
+                @media screen and (max-width: 768px) {
+                    text-align: center;
+                }
             }
+
+            .categorie { grid-area: categorie; }
+            .type { grid-area: type; }
+            .ingredient { grid-area: ingredient; }
+            .etape { grid-area: etape; }
+            .timing { grid-area: timing; }
+            .portion { grid-area: portion; }
 
             p {
-                font-family: 'Open sans';
+                font-family: 'Open Sans';
                 font-size: 16px;
                 font-weight: lighter;
+                width: 100%;
+                text-align: left;
+
+                @media screen and (max-width: 768px) {
+                    font-size: 14px;
+                    text-align: center;
+                }
             }
 
             .details-info {
+                display: flex;
+                flex-direction: column;
                 align-items: flex-start;
+                width: 100%;
+
+                @media screen and (max-width: 768px) {
+                    align-items: center;
+                }
+            }
+        }
+    }
+
+    // Responsive layout for larger screens
+    @media screen and (min-width: 1024px) {
+        &__list .detail-card {
+            grid-template-areas: 
+                "titre titre"
+                "image categorie"
+                "image type"
+                "image ingredient"
+                "etape etape"
+                "timing portion";
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+
+            .titre {
+                grid-column: span 2;
+                text-align: center;
+            }
+
+            .image {
+                grid-area: image;
+                max-width: 400px;
+                max-height: 400px;
             }
         }
     }
