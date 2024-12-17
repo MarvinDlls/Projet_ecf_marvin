@@ -209,7 +209,7 @@ export default function Modal({ isOpen, onClose, onSubmit }) {
             required
           >
             <option value="">--Choisissez un type de cuisine--</option>
-            <option value="Italie">Italien</option>
+            <option value="Italie">Italie</option>
             <option value="Maroc">Maroc</option>
             <option value="Mexique">Mexique</option>
             <option value="Japon">Japon</option>
