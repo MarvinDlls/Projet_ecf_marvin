@@ -22,7 +22,7 @@ Ce projet est une application web permettant de gérer des recettes. Il est divi
 
 ### Back-end
 
-1. Naviguer dans le dossier `back` contenant le back-end.
+1. Naviguer dans le dossier `back` contenant le back-end via ce repo GitHub (https://github.com/MarvinDlls/back.git/).
    ```bash
    cd back
    ```
