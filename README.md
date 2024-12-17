@@ -24,14 +24,11 @@ Ce projet est une application web permettant de gérer des recettes. Il est divi
 
 1. Naviguer dans le dossier `back` contenant le back-end via ce repo GitHub [ici](https://github.com/MarvinDlls/back.git).   
 
-2. ```bash
-   cd back
-   ```
-3. Installer les dépendances avec npm :
+2. Installer les dépendances avec npm :
    ```bash
    npm install
    ```
-4. Lancer le serveur :
+3. Lancer le serveur :
    ```bash
    node index.js
    ```
