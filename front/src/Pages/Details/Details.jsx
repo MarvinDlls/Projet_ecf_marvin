@@ -70,7 +70,7 @@ function Details({ isModalOpen, setIsModalOpen }) {
   };
 
   const parsePortions = (portion) => {
-    if (Array.isArray(portion)) return etapes;
+    if (Array.isArray(portion)) return portion;
     if (typeof portion === "string") {
       return portion
         .split(/[.|\n]/)
@@ -80,6 +80,16 @@ function Details({ isModalOpen, setIsModalOpen }) {
     return [];
   };
 
+  const parseAdvices = (advice) => {
+    if (Array.isArray(advice)) return advice;
+    if (typeof advice === "string") {
+      return advice
+        .split(/[.|\n]/)
+        .map((step) => step.trim())
+        .filter((step) => step);
+    }
+  }
+
   const recipeCategory = categories.find(
     (category) => category.id.toString() === recipe.category.toString()
   );
@@ -87,6 +97,7 @@ function Details({ isModalOpen, setIsModalOpen }) {
   const portions = parsePortions(recipe.portion);
   const ingredients = parseIngredients(recipe.ingredients);
   const etape = parseEtape(recipe.etape);
+  const advice = parseAdvices(recipe.advice);
 
   return (
     <main className="detail">
@@ -139,6 +150,9 @@ function Details({ isModalOpen, setIsModalOpen }) {
             </p>
             <p>
               Portions: <span className="portion">{recipe.portions}</span>
+            </p>
+            <p>
+              Conseils: <span className="advice">{recipe.advice}</span>
             </p>
           </div>
         </div>
